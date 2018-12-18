@@ -1,61 +1,40 @@
 var fs = require('fs');
 var zl = require('zlib');
 
-var decompressPromise = new Promise((resolve,reject) => {
-    decompressFile('Actors.txt','Actors.txt.gz',function(err){
-        if(err){
-            reject(console.log(err));
-        }
-    resolve()    
-    })
-    console.log('De compressing file..')
-    var unzipFile = fs.createReadStream(source);
-    var unzipFiletoTxt = fs.createWriteStream(destination);
-    unzipFile.pipe(zl.createGunzip()).pipe(unzipFiletoTxt);    
-    console.log('File De compressed..')    
-    next();
-})
-
-var backupPromise = new Promise((resolve,reject) => {
-    console.log('backing up file..')
-    var read = fs.createReadStream(source);
-    var write = fs.createWriteStream(destination);
-    read.pipe(write);    
-    console.log('File Backed up..')
-    next();    
-    decompressFile('Actors.txt','Actors.txt.gz',function(err){
-        if(err){
-            reject(console.log(err));
-        }
-    resolve()    
-    })
-})
-
-var compressPromise = (source, destination) => {
-    return new Promise((resolve,reject) => {
-        function compressFile(err, source, destination){
-            console.log('compressing file..')
+function compressFile(source, destination){    
+    return new Promise(function(resolve,reject){
+            console.log("compressing File")
             var read = fs.createReadStream(source);
             var compress = fs.createWriteStream(destination);
             read.pipe(zl.createGzip()).pipe(compress);
-        }
-        if(err){
-            reject(console.log(err));
-        }
-        else{
-            resolve()
-        }    
+            resolve("false");
     })
 }
 
-compressPromise('Actors.txt','Actors.txt.gz')
-.then(
-    decompressPromise('Actors.txt.gz','ActorsDecom.txt')
-    .then(
-        backupPromise('ActorsDecom.txt','Actorsbckp.txt')
-        .then(()=> console.log("Finished"))
-        .catch(console.log(err))
-    )
-    .catch(console.log(err))
-)
-.catch(console.log(err));     
+function decompressFile(source, destination){
+    return new Promise(function(resolve,reject){
+        console.log("De compressing File")
+        var unzipFile = fs.createReadStream(source);
+        var unzipFiletoTxt = fs.createWriteStream(destination);
+        unzipFile.pipe(zl.createGunzip()).pipe(unzipFiletoTxt);    
+        resolve("true");
+    })
+}
+
+function backupFile(source, destination){
+    return new Promise(function(resolve,reject){
+        console.log("Backing Up File")
+        var read = fs.createReadStream(source);
+        var write = fs.createWriteStream(destination);
+        read.pipe(write);
+        resolve("true");    
+    })
+}
+
+compressFile('Actors.txt','Actors.txt.gz').then(function(val){
+    if(val === "true")
+        decompressFile('Actors.txt.gz','ActorsDecom.txt').then(function(val){
+            if(val === "true")
+                backupFile('ActorsDecom.txt','Actorsbckp.txt').then(console.log("Finished"))
+        })
+    })
