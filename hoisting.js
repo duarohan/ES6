@@ -80,3 +80,24 @@ for(key in student) {
 // Object.keys(student)
 // Object.keys(student).map(k => console.log(student[k]))
 // Object.keys(student).map(k => console.log(`Type --> ${typeof(student[k])} --- Name --> ${student[k]} -- `))
+
+console.log("last operation")
+console.log(typeof(typeof(1)))
+
+let lnum  = 10;
+console.log(`Value of let lnum is ${lnum}`);
+
+lnum  = 12;
+console.log(`Value of let lnum is ${lnum}`);
+
+var num  = 10;
+console.log(`Value of let vnum is ${num}`);
+
+num  = 12;
+console.log(`Value of let vnum is ${num}`);
+
+//variable typing
+var stringNum = 10;
+stringNum = "string"
+console.log(stringNum);
+

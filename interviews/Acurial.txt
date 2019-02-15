@@ -1,0 +1,50 @@
+user.db 
+
+Firstname
+LastName
+City
+
+?Firstname=
+?LastName
+req.query
+
+router.get('/updateUser/:username/Firstname/:value',ensureAutheticated,function(req,res){
+    req.params(username)
+    user.find( username : req.params(username)){
+        //Auth
+        if(err){
+            console.err("");
+        }
+        user.
+    }
+})
+
+router.get('/updateUser/:username/Lastname/:value',ensureAutheticated,function(req,res){
+    req.params(username)
+    user.find( username : req.params(username)){
+        //Auth
+        if(err){
+            console.err("");
+        }
+        user.
+    }
+})
+
+casual -6
+sick- 6
+privelage - 6
+
+checkLeave -
+applyLeave - no.of days, typeleave 
+requestLeave -
+Date Selection
+
+employee
+username
+existingLeave
+
+router.get(/applyLeave/:userName/:noOfDays/:typeOfLeave, function(){
+
+})
+
+

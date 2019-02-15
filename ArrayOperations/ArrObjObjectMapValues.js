@@ -12,5 +12,12 @@ console.log(links);
 //Manipulate values of an array
 var Arr = [2,4,6,8,10]
 Arr2 = Object.values(Arr).map(k => k *2);
-console.log(Arr2);
 //output Arr2=[4,8,12,16,20]
+console.log(Arr2);
+
+Arr3 = Object.values(Arr).map(k => {
+    return k !== 4 ? k : null;
+    }
+);
+console.log(Arr3);
+//output Arr2=[2,6,8,10]
